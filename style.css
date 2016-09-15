@@ -1,0 +1,12 @@
+main {
+  max-width: 960px;
+}
+
+#answer {
+  height: 500px;
+}
+
+.control {
+  padding: 20px 0;
+  text-align: right;
+}
