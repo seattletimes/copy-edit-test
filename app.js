@@ -3,7 +3,8 @@ editor.setOptions({
   wrap: true,
   showGutter: false,
   highlightActiveLine: false,
-  showPrintMargin: false
+  showPrintMargin: false,
+  fontSize: 16
 });
 editor.session.setMode("ace/text/markdown");
 editor.setTheme("ace/theme/solarized_light");
@@ -16,6 +17,7 @@ var init = function(sheet) {
     var row = sheet[index];
     if (!row) {
       editor.setValue("");
+      editor.setOption("readOnly", true);
       question.innerHTML = "All done!";
     } else {
       editor.setValue(row.text);
