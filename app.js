@@ -13,7 +13,9 @@ var init = function(sheet) {
   var index = 0;
   var question = document.querySelector(".question");
   var candidate = document.querySelector("#candidate");
+  var button = document.querySelector("button.send");
   var setQuestion = function() {
+    button.disabled = false;
     var row = sheet[index];
     if (!row) {
       editor.setValue("");
@@ -24,19 +26,22 @@ var init = function(sheet) {
       question.innerHTML = row.question;
     }
   };
-  $("button.send").on("click", function() {
+  $(button).on("click", function() {
     if (!candidate.value) {
       return alert("Please fill in your name.");
     }
+    button.disabled = true;
     var request = $.ajax({
       url: "https://script.google.com/macros/s/AKfycbxFiW6PfEnhUrbwI2d1_JGY5P6xgLczZw79VhWoIpkRX4PDVyOb/exec",
       jsonp: true,
       data: {
+        index: index,
         candidate: candidate.value,
         question: sheet[index].question,
         answer: editor.getValue()
       }
     });
+    question.innerHTML = "Loading, please wait..."
     request.then(function() {
       index++;
       setQuestion(index);
