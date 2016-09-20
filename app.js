@@ -6,7 +6,7 @@ editor.setOptions({
   showPrintMargin: false,
   fontSize: 16
 });
-editor.session.setMode("ace/text/markdown");
+editor.session.setMode("ace/mode/rst");
 editor.setTheme("ace/theme/solarized_light");
 
 var init = function(sheet) {
@@ -25,6 +25,9 @@ var init = function(sheet) {
       editor.setValue(row.text);
       question.innerHTML = row.question;
     }
+    var undo = editor.session.getUndoManager();
+    // needs to be async for some reason
+    setTimeout(function() { undo.reset() });
   };
   $(button).on("click", function() {
     if (!candidate.value) {
